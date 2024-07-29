@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:provider/provider.dart';
 import 'package:googleapis/youtube/v3.dart';
+import 'package:provider/provider.dart';
 
 import 'app_state.dart';
 
@@ -48,20 +48,22 @@ class _PlaylistsListView extends StatelessWidget {
               playlist.snippet!.thumbnails!.default_!.url!,
             ),
             title: Text(playlist.snippet!.title!),
-            subtitle: Text(playlist.snippet!.description!,),
+            subtitle: Text(
+              playlist.snippet!.description!,
+            ),
             onTap: () {
               context.go(
                 Uri(
-                  path: '/playlists/${playlist.id}',
+                  path: '/playlist/${playlist.id}',
                   queryParameters: <String, String>{
                     'title': playlist.snippet!.title!
                   },
                 ).toString(),
               );
             },
-          ), 
+          ),
         );
-      }
+      },
     );
   }
 }

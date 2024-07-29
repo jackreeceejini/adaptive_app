@@ -4,7 +4,6 @@ import 'package:flutter/foundation.dart';
 import 'package:googleapis/youtube/v3.dart';
 import 'package:http/http.dart' as http;
 
-
 class FlutterDevPlaylists extends ChangeNotifier {
   FlutterDevPlaylists({
     required String flutterDevAccountId,
@@ -31,7 +30,9 @@ class FlutterDevPlaylists extends ChangeNotifier {
         pageToken: nextPageToken,
       );
       _playlists.addAll(response.items!);
-      _playlists.sort((a, b) => a.snippet!.title!.toLowerCase().compareTo(b.snippet!.title!.toLowerCase()));
+      _playlists.sort((a, b) => a.snippet!.title!
+          .toLowerCase()
+          .compareTo(b.snippet!.title!.toLowerCase()));
       notifyListeners();
       nextPageToken = response.nextPageToken;
     } while (nextPageToken != null);
@@ -62,7 +63,7 @@ class FlutterDevPlaylists extends ChangeNotifier {
         pageToken: nextPageToken,
       );
       var items = response.items;
-      if (items != null){
+      if (items != null) {
         _playlistItems[playlistId]!.addAll(items);
       }
       notifyListeners();

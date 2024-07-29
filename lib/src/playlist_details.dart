@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:googleapis/youtube/v3.dart';
 import 'package:provider/provider.dart';
-import 'package:url_launcher/Link.dart';
+import 'package:url_launcher/link.dart';
 
 import 'app_state.dart';
 
 class PlaylistDetails extends StatelessWidget {
   const PlaylistDetails(
-    {required this.playlistId, required this.playlistName, super.key}
-  );
+      {required this.playlistId, required this.playlistName, super.key});
   final String playlistId;
   final String playlistName;
 
@@ -36,7 +35,7 @@ class _PlaylistDetailsListView extends StatelessWidget {
   const _PlaylistDetailsListView({required this.playlistItems});
   final List<PlaylistItem> playlistItems;
 
-  @override 
+  @override
   Widget build(BuildContext context) {
     return ListView.builder(
       itemCount: playlistItems.length,
@@ -47,7 +46,7 @@ class _PlaylistDetailsListView extends StatelessWidget {
           child: ClipRRect(
             borderRadius: BorderRadius.circular(4),
             child: Stack(
-              alignment: Alignment.center, 
+              alignment: Alignment.center,
               children: [
                 if (playlistItem.snippet!.thumbnails!.high != null)
                   Image.network(playlistItem.snippet!.thumbnails!.high!.url!),
@@ -81,32 +80,33 @@ class _PlaylistDetailsListView extends StatelessWidget {
   }
 
   Widget _buildTitleAndSubtitle(
-    BuildContext context, PlaylistItem playlistItem) {
-      return Positioned(
-        left: 20,
-        right: 0,
-        bottom: 20,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              playlistItem.snippet!.title!,
-              style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                fontSize: 18,
-              ),
-            ),
-            if (playlistItem.snippet!.videoOwnerChannelTitle != null)
-              Text(
-                playlistItem.snippet!.videoOwnerChannelTitle!,
-                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                  fontSize: 12,
+      BuildContext context, PlaylistItem playlistItem) {
+    return Positioned(
+      left: 20,
+      right: 0,
+      bottom: 20,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            playlistItem.snippet!.title!,
+            style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                  fontSize: 18,
+                  // fontWeight: FontWeight.bold,
                 ),
-              ),
-          ],
-        ),
-      );
-    }
+          ),
+          if (playlistItem.snippet!.videoOwnerChannelTitle != null)
+            Text(
+              playlistItem.snippet!.videoOwnerChannelTitle!,
+              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                    fontSize: 12,
+                  ),
+            ),
+        ],
+      ),
+    );
+  }
 
   Widget _buildPlayButton(BuildContext context, PlaylistItem playlistItem) {
     return Stack(
@@ -123,18 +123,16 @@ class _PlaylistDetailsListView extends StatelessWidget {
           ),
         ),
         Link(
-          uri: Uri.parse('https://www.youtube.com/watch?v=${playlistItem.snippet!.resourceId!.videoId}'),
+          uri: Uri.parse(
+              'https://www.youtube.com/watch?v=${playlistItem.snippet!.resourceId!.videoId}'),
           builder: (context, followLink) => IconButton(
             onPressed: followLink,
             color: Colors.red,
             icon: const Icon(Icons.play_circle_fill),
             iconSize: 45,
-          )
+          ),
         ),
       ],
     );
   }
 }
-
-
-
