@@ -49,10 +49,10 @@ class WideDisplayPlaylists extends StatefulWidget {
   const WideDisplayPlaylists({super.key});
 
   @override
-  State<WideDisplayPlaylists> createState() => _WidgetDisplayPlaylistsState();
+  State<WideDisplayPlaylists> createState() => _WideDisplayPlaylistsState();
 }
 
-class _WidgetDisplayPlaylistsState extends State<WideDisplayPlaylists> {
+class _WideDisplayPlaylistsState extends State<WideDisplayPlaylists> {
   Playlist? selectedPlaylist;
 
   @override
